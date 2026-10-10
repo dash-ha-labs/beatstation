@@ -64,7 +64,7 @@ export function BeatChips() {
         <PlusIcon />
       </button>
       <button className="btn shrink-0" aria-haspopup="menu" onClick={(e) => setPresetMenu(e.currentTarget)}>Insert preset</button>
-      <span className="label ml-auto hidden min-w-0 shrink-[100] truncate wide:inline">Right-click a beat for options · drag to the Song</span>
+      <span className="label ml-auto hidden min-w-0 shrink-[100] truncate wide:inline">Long-press a beat to rename or recolor it</span>
 
       <Menu
         anchor={presetMenu}

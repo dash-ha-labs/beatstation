@@ -38,9 +38,9 @@ describe('position', () => {
 import { padGeometry } from '../src/screens/workspace/BeatEditor';
 
 describe('padGeometry (pads fill the Beat Editor row)', () => {
-  it('stretches width to the free space, caps height at 40 so rows stay 44 px', () => {
+  it('stretches width to the free space, caps height at 44 so rows stay 48 px (kids reskin)', () => {
     const g = padGeometry(1200, 16, 22);
-    expect(g.h).toBe(40);
+    expect(g.h).toBe(44);
     expect(16 * g.w + 15 * 4 + 3 * 6).toBeLessThanOrEqual(1200);
     expect(16 * (g.w + 1) + 15 * 4 + 3 * 6).toBeGreaterThan(1200);
   });

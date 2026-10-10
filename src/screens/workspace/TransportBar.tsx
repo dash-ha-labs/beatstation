@@ -9,15 +9,14 @@ import { actions, canRedo, canUndo, useWorkspace } from '../../store/workspace';
 import { BackIcon, DownloadIcon, LoopIcon, MixerIcon, PlayIcon, RedoIcon, ReturnIcon, SparkleIcon, StopIcon, UndoIcon } from '../../ui/icons';
 import { Knob } from '../../ui/Knob';
 import { Lcd } from '../../ui/Lcd';
-import { Led, LedButton } from '../../ui/LedButton';
+import { LedButton } from '../../ui/LedButton';
 import { Toggle } from '../../ui/Toggle';
 import { Tooltip } from '../../ui/Tooltip';
 import { VolumeKnob } from '../../ui/VolumeKnob';
 
 // docs/UI_DESIGN.md → Workspace → Transport. 64 px Panel; wraps into two rows below 900 px.
-
-const SAVE_LED = { saved: 'var(--led-green)', dirty: 'var(--led-amber)', saving: 'var(--led-amber)', error: 'var(--led-red)' } as const;
-const SAVE_TEXT = { saved: 'saved', dirty: 'saving', saving: 'saving', error: 'not saved' } as const;
+// Kids reskin (t_0d35129e): bigger Play / Return / Loop, and no server save-status LED —
+// this static deployment keeps work in the browser session, so "not saved" would only nag.
 
 let taps: number[] = [];
 export function tap() {
@@ -40,7 +39,7 @@ function Position() {
 function PlayButton() {
   const playing = usePlayhead((s) => s.playing);
   return (
-    <LedButton label={playing ? 'Stop (Space)' : 'Play (Space)'} toggle={false} led={false} size={32} onClick={() => void togglePlay()}>
+    <LedButton label={playing ? 'Stop (Space)' : 'Play (Space)'} toggle={false} led={false} size={40} onClick={() => void togglePlay()}>
       {playing ? <StopIcon /> : <PlayIcon />}
     </LedButton>
   );
@@ -55,8 +54,6 @@ export function TransportBar() {
   const loop = useWorkspace((s) => s.workspace.loop.enabled);
   const undoable = useWorkspace(canUndo);
   const redoable = useWorkspace(canRedo);
-  const saveStatus = useUi((s) => s.saveStatus);
-  const saveError = useUi((s) => s.saveError);
   const mixerOpen = useUi((s) => s.mixerOpen);
   const sideOpen = useUi((s) => s.sideOpen);
   const tapRef = useRef<HTMLButtonElement>(null);
@@ -69,8 +66,8 @@ export function TransportBar() {
 
       <div className="flex items-center gap-s2">
         <PlayButton />
-        <LedButton label="Return to start (Enter)" toggle={false} led={false} size={32} onClick={() => void restart()}><ReturnIcon /></LedButton>
-        <LedButton label="Loop region (L)" on={loop} size={32} onClick={() => actions.setLoop({ enabled: !loop })}><LoopIcon /></LedButton>
+        <LedButton label="Return to start (Enter)" toggle={false} led={false} size={36} onClick={() => void restart()}><ReturnIcon /></LedButton>
+        <LedButton label="Loop region (L)" on={loop} size={36} onClick={() => actions.setLoop({ enabled: !loop })}><LoopIcon /></LedButton>
       </div>
 
       <Toggle label="Play mode" left="BEAT" right="SONG" value={mode} onChange={(m) => actions.setPlayMode(m)} />
@@ -105,13 +102,8 @@ export function TransportBar() {
         </Tooltip>
       </div>
 
-      <Tooltip text={saveError ?? (saveStatus === 'saved' ? 'All changes saved' : 'Saving…')} side="bottom">
-        <span tabIndex={0} className="flex items-center gap-s2" role="status" aria-label={`Save status: ${SAVE_TEXT[saveStatus]}`}>
-          <Led color={SAVE_LED[saveStatus]} />
-          <span className="label">{SAVE_TEXT[saveStatus]}</span>
-        </span>
-      </Tooltip>
-
+      {/* Save status is server machinery; this static deployment keeps work in the browser
+          session (brief B01), so the LED/label would only ever nag — hidden for kids. */}
       <div className="ml-auto flex items-center gap-s2">
         <LedButton label="Mixer (M)" on={mixerOpen} wide onClick={() => useUi.getState().set({ mixerOpen: !mixerOpen })}>
           <MixerIcon /> MIXER

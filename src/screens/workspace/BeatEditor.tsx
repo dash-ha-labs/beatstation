@@ -23,7 +23,7 @@ const VEL_NAME: Record<number, string> = { 40: 'ghost', 80: 'soft', 100: 'normal
 const ROW_LABEL_W = 92; // name label shown when the Rack is a slide-over (< 900 px)
 const CLEAR_W = 28;
 
-const PAD_MAX_H = 40; // rows are 44 px tall and line up with the Rack
+const PAD_MAX_H = 44; // kids reskin: rows are 48 px tall and line up with the Rack
 
 function gapsWidth(n: number) {
   return (n - 1) * PAD_GAP + (Math.ceil(n / 4) - 1) * (GROUP_GAP - PAD_GAP);
@@ -115,14 +115,15 @@ export function BeatEditor() {
   const padSize = pad.h;
   const length = beat?.length ?? 16;
 
-  // Pads fill the available width (min 22 desktop / 32 touch; scrolls horizontally below that).
+  // Pads fill the available width (min 22 desktop / 40 touch per the kids reskin; scrolls
+  // horizontally below that).
   useLayoutEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     const fit = () => {
       const labelW = window.innerWidth < 900 ? ROW_LABEL_W : 0;
       const avail = el.clientWidth - labelW - CLEAR_W - 4;
-      const minSize = window.matchMedia('(pointer: coarse)').matches ? 32 : 22;
+      const minSize = window.matchMedia('(pointer: coarse)').matches ? 40 : 22;
       const next = padGeometry(avail, length, minSize);
       setPad((cur) => (cur.w === next.w && cur.h === next.h ? cur : next));
     };

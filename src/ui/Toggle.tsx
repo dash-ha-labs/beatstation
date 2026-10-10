@@ -20,14 +20,14 @@ export function Toggle<L extends string, R extends string>({ label, left, right,
         aria-checked={isRight}
         aria-label={`${label}: ${value}`}
         disabled={disabled}
-        className="toggle relative h-[26px] w-[64px] shrink-0 rounded-full"
+        className="toggle relative h-[36px] w-[72px] shrink-0 rounded-full"
         onClick={() => onChange(isRight ? left : right)}
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft') { e.preventDefault(); onChange(left); }
           if (e.key === 'ArrowRight') { e.preventDefault(); onChange(right); }
         }}
       >
-        <span className="toggle-thumb absolute top-[3px] h-[20px] w-[30px] rounded-full" style={{ left: isRight ? 31 : 3 }} />
+        <span className="toggle-thumb absolute top-[4px] h-[28px] w-[32px] rounded-full" style={{ left: isRight ? 36 : 4 }} />
       </button>
       <button type="button" tabIndex={-1} className={`label ${isRight ? 'text-ink' : ''}`} onClick={() => !disabled && onChange(right)}>{right}</button>
     </div>

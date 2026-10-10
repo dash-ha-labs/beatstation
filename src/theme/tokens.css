@@ -23,15 +23,17 @@
   --shadow-pressed: inset 3px 3px 7px rgba(0,0,0,.18), inset -3px -3px 7px rgba(255,255,255,.7);
   --shadow-sunken: inset 2px 2px 5px rgba(0,0,0,.20), inset -2px -2px 5px rgba(255,255,255,.6);
   --hairline: 1px solid rgba(255,255,255,.7);
-  /* shape */
-  --r-lg: 18px; --r-md: 12px; --r-sm: 8px; --r-pad: 9px;
+  /* shape — kids reskin (t_0d35129e): everything rounder; sizes only, palette unchanged */
+  --r-lg: 22px; --r-md: 16px; --r-sm: 12px; --r-pad: 14px;
+  /* minimum comfortable touch target for kid fingers (buttons, chips, toggles) */
+  --touch: 40px;
   /* type */
   --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --font-hand: "Petaluma Script", "Segoe Print", "Comic Sans MS", cursive; /* hand-lettered chart font, Home guide only */
-  --label: 600 10px/1 var(--font-ui);       /* uppercase, letter-spacing .08em */
-  --text: 400 13px/1.4 var(--font-ui);
-  --title: 600 15px/1.2 var(--font-ui);
+  --label: 600 11px/1 var(--font-ui);       /* uppercase, letter-spacing .08em */
+  --text: 400 14px/1.45 var(--font-ui);
+  --title: 600 16px/1.25 var(--font-ui);
   /* spacing (4px grid) */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px;
   /* motion */

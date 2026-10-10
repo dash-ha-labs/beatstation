@@ -31,7 +31,7 @@ export function Chip({ name, color, selected, disabled, onSelect, onContextMenu,
       aria-selected={!!selected}
       tabIndex={selected ? 0 : -1}
       disabled={disabled}
-      className="chip inline-flex h-[26px] shrink-0 items-center gap-s2 rounded-full px-s3"
+      className="chip inline-flex h-[36px] shrink-0 items-center gap-s2 rounded-full px-s4"
       data-selected={selected || undefined}
       draggable={draggable}
       onDragStart={onDragStart}

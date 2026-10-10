@@ -79,17 +79,21 @@ body {
 }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
-  height: 32px; padding: 0 var(--s4); border-radius: var(--r-sm);
-  font: 600 12px/1 var(--font-ui);
+  height: var(--touch); padding: 0 var(--s5); border-radius: var(--r-md);
+  font: 700 14px/1 var(--font-ui);
 }
 .btn-primary { background: var(--graphite); color: var(--ink-inverse); }
 .btn-danger { color: var(--led-red); }
 .btn:active:not(:disabled), .led-btn:active:not(:disabled), .chip:active:not(:disabled), .btn[aria-pressed='true'] {
-  transform: translateY(1px);
+  transform: translateY(2px);
   box-shadow: var(--shadow-pressed);
 }
 .btn:disabled, .led-btn:disabled, .chip:disabled { opacity: .45; cursor: not-allowed; }
-.led-btn { border-radius: var(--r-sm); font: 600 10px/1 var(--font-ui); letter-spacing: .06em; text-transform: uppercase; }
+/* Kids: the shape language softens — rounder buttons; chips and LED buttons grow to the
+   shared touch target and label text gets bigger and friendlier (clearer at arm's length). */
+.led-btn, .chip { border-radius: var(--r-md); }
+.led-btn { font: 700 12px/1 var(--font-ui); letter-spacing: .05em; }
+.chip { font: 700 13px/1 var(--font-ui); }
 .led-btn[aria-pressed='true'] { box-shadow: var(--shadow-pressed); }
 
 .icon-btn {
@@ -165,12 +169,14 @@ body {
   transition: transform var(--t-fast) var(--ease), filter var(--t-fast) var(--ease);
 }
 .pad[data-on] {
-  background: color-mix(in srgb, var(--pad-color) calc(55% + 45% * var(--pad-level)), var(--graphite));
-  box-shadow: inset 0 0 12px rgba(255,255,255, calc(.35 * var(--pad-level))),
-              0 0 12px color-mix(in srgb, var(--pad-color) calc(100% * var(--pad-level)), transparent),
-              inset 0 0 0 1px rgba(0,0,0,.15);
+  /* Kids: a firm slot-colour fill plus a crisp light rim, so "this step is ON" reads
+     instantly even at the quietest velocity (glow still scales with velocity). */
+  background: color-mix(in srgb, var(--pad-color) calc(70% + 30% * var(--pad-level)), var(--graphite));
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.55),
+              inset 0 0 12px rgba(255,255,255, calc(.35 * var(--pad-level))),
+              0 0 16px color-mix(in srgb, var(--pad-color) calc(100% * var(--pad-level)), transparent);
 }
-.pad:active:not(:disabled) { transform: translateY(1px); }
+.pad:active:not(:disabled) { transform: translateY(2px); }
 .pad[data-playhead] { outline: 2px solid rgba(255,255,255,.55); outline-offset: -2px; }
 .pad[data-playhead]:focus-visible { outline: 2px solid var(--led-on); }
 .pad.flash { filter: brightness(1.6); transition: none; }

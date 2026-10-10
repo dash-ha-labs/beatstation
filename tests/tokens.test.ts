@@ -10,7 +10,7 @@ describe('design tokens', () => {
     ['--panel', '#E9E5DC'],
     ['--led-on', '#FF6A00'],
     ['--lcd-bg', '#1E1F21'],
-    ['--r-pad', '9px'],
+    ['--r-pad', '14px'],
     ['--s6', '32px'],
     ['--t-fast', '90ms'],
   ])('%s = %s', (name, value) => {

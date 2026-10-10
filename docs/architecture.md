@@ -124,6 +124,13 @@ family, graphite panels, orange LED accent `#FF6A00`, LCD amber `#FF8A3D`), mapp
 Tailwind via `tailwind.config.ts`. Keeping the Krisp palette for now means changing
 `tokens.css` is the single point of control for the future kids' reskin.
 
+Kids reskin (task t_0d35129e): the palette is unchanged; the same tokens now render a
+friendlier, cleaner surface — rounder corners (`--r-lg/md/sm/pad` 22/16/12/14 px), a
+40 px `--touch` target, larger type (`--label` 11 px, `--text` 14 px, `--title` 16 px),
+40 px touch pads in 48 px rows (Rack rows align via `screens/workspace/layout.ts`), a
+firmer lit-pad state (solid fill + light rim), and kid-facing copy ("Beatstation",
+"projects"). The server save-status LED is hidden in the Transport (the static deploy
+keeps work in the browser session); all save/AI/export machinery is untouched.
 Landscape phones/tablets (M2): `src/ui/landscapeFit.ts` scales the whole studio to the
 screen via the meta viewport while active (`fit-screen` locks the page to one screen;
 the Song section scrolls internally) and restores the default viewport otherwise.

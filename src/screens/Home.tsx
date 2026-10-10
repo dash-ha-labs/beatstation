@@ -59,7 +59,7 @@ function NewWorkspaceDialog({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <Dialog
       open={open}
-      title="New workspace"
+      title="New beat project"
       onClose={onClose}
       width={620}
       actions={
@@ -73,7 +73,7 @@ function NewWorkspaceDialog({ open, onClose }: { open: boolean; onClose: () => v
         <label className="label mb-s2 block" htmlFor="ws-name">Name</label>
         <input id="ws-name" data-autofocus className="field mb-s5" value={name} maxLength={100} onChange={(e) => setName(e.target.value)} />
         <fieldset>
-          <legend className="label mb-s2">Start from</legend>
+          <legend className="label mb-s2">Start from a beat</legend>
           <div role="radiogroup" aria-label="Start from" className="grid grid-cols-2 gap-s3 mid:grid-cols-3">
             {options.map((o) => {
               const preset = PRESET_BEATS.find((p) => p.id === o.id);
@@ -145,12 +145,12 @@ export default function Home() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-s5 p-s4 mid:p-s6">
-      <Panel label="Krisp" screws className="flex items-end justify-between px-s6 py-s5">
+      <Panel label="Beatstation" screws className="flex items-end justify-between px-s6 py-s5">
         <div>
-          <h1 className="font-display text-[30px] font-medium tracking-[.14em] text-ink">KRISP</h1>
-          <p className="label mt-s1">beat workspace</p>
+          <h1 className="font-display text-[30px] font-medium tracking-[.14em] text-ink">BEATSTATION</h1>
+          <p className="label mt-s1">make beats!</p>
         </div>
-        <button className="btn btn-primary" onClick={() => setCreating(true)}><PlusIcon /> New workspace</button>
+        <button className="btn btn-primary" onClick={() => setCreating(true)}><PlusIcon /> New beat project</button>
       </Panel>
 
       {error && (
@@ -161,21 +161,21 @@ export default function Home() {
       )}
 
       {items === null ? (
-        <p className="label px-s2" role="status">Loading workspaces…</p>
+        <p className="label px-s2" role="status">Loading projects…</p>
       ) : items.length === 0 && !error ? (
-        <Panel label="No workspaces" className="flex flex-col items-center gap-s4 px-s6 py-s6 text-center">
-          <p className="title">No workspaces yet — start one and hear a beat in seconds.</p>
-          <button className="btn btn-primary" onClick={() => setCreating(true)}><PlusIcon /> New workspace</button>
+        <Panel label="No projects" className="flex flex-col items-center gap-s4 px-s6 py-s6 text-center">
+          <p className="title">No projects yet — start one and hear a beat in seconds.</p>
+          <button className="btn btn-primary" onClick={() => setCreating(true)}><PlusIcon /> New beat project</button>
         </Panel>
       ) : (
-        <ul className="grid gap-s5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }} aria-label="Workspaces">
+        <ul className="grid gap-s5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }} aria-label="Projects">
           <li>
             <button
               className="flex h-[140px] w-full flex-col items-center justify-center gap-s2 rounded-lg border-2 border-dashed border-[#BDB7AC] bg-panel-sunken text-ink-soft shadow-sunken hover:text-ink"
               onClick={() => setCreating(true)}
             >
               <PlusIcon size={28} />
-              <span className="font-semibold">New workspace</span>
+              <span className="font-semibold">New beat project</span>
             </button>
           </li>
           {items.map((ws) => (
