@@ -1,0 +1,23 @@
+import { useUi } from '../../store/ui';
+import { CloseIcon } from '../../ui/icons';
+import { Tabs } from '../../ui/Tabs';
+import { AIPanel } from './AIPanel';
+import { SoundBrowser } from './SoundBrowser';
+
+// docs/UI_DESIGN.md → Side panel: [SOUNDS | AI].
+
+export function SidePanel({ onClose }: { onClose?: () => void }) {
+  const tab = useUi((s) => s.sidePanel);
+  return (
+    <section className="panel flex h-full min-h-[480px] flex-col gap-s4 p-s4" aria-label="Side panel">
+      <div className="flex items-center gap-s2">
+        <Tabs label="Side panel" idPrefix="side" className="flex-1" value={tab} onChange={(v) => useUi.getState().set({ sidePanel: v })}
+          items={[{ value: 'SOUNDS', label: 'Sounds' }, { value: 'AI', label: 'AI' }]} />
+        {onClose && <button className="icon-btn" aria-label="Close panel" onClick={onClose}><CloseIcon /></button>}
+      </div>
+      <div role="tabpanel" id={`side-panel-${tab}`} aria-labelledby={`side-tab-${tab}`} className="min-h-0 flex-1">
+        {tab === 'SOUNDS' ? <SoundBrowser /> : <AIPanel />}
+      </div>
+    </section>
+  );
+}
