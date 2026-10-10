@@ -124,6 +124,10 @@ family, graphite panels, orange LED accent `#FF6A00`, LCD amber `#FF8A3D`), mapp
 Tailwind via `tailwind.config.ts`. Keeping the Krisp palette for now means changing
 `tokens.css` is the single point of control for the future kids' reskin.
 
+Landscape phones/tablets (M2): `src/ui/landscapeFit.ts` scales the whole studio to the
+screen via the meta viewport while active (`fit-screen` locks the page to one screen;
+the Song section scrolls internally) and restores the default viewport otherwise.
+
 ## Tests
 
 `npm run test` runs vitest suites over pure logic: scheduler timing, store/history,

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ApiError } from '../api/client';
 import { flushPending, startAutosave, stopAutosave } from '../api/autosave';
 import { getWorkspace } from '../api/workspaces';
@@ -7,6 +7,7 @@ import { navigate } from '../router';
 import { LAYOUT_DEFAULTS, LAYOUT_LIMITS, useLayout } from '../store/layout';
 import { useUi } from '../store/ui';
 import { useWorkspace } from '../store/workspace';
+import { useLandscapeFit } from '../ui/landscapeFit';
 import { Panel } from '../ui/Panel';
 import { Splitter } from '../ui/Splitter';
 import { BeatChips } from './workspace/BeatChips';
@@ -75,6 +76,9 @@ function useLoadWorkspace(id: string): Load {
 
 export default function Workspace({ id }: { id: string }) {
   const load = useLoadWorkspace(id);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // Landscape phones/tablets: scale the studio to fit the screen (src/ui/landscapeFit.ts).
+  useLandscapeFit(rootRef);
   const mixerOpen = useUi((s) => s.mixerOpen);
   const sideOpen = useUi((s) => s.sideOpen);
   const rackOpen = useUi((s) => s.rackOpen);
@@ -111,7 +115,7 @@ export default function Workspace({ id }: { id: string }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col gap-s3 p-s3" style={{ paddingBottom: mixerOpen ? mixerH + 16 : undefined }}>
+    <div ref={rootRef} className="flex min-h-screen flex-col gap-s3 p-s3" style={{ paddingBottom: mixerOpen ? mixerH + 16 : undefined }}>
       <TransportBar />
       <div
         className="grid min-h-0 flex-1 items-start gap-s3 grid-cols-1 mid:grid-cols-[56px_minmax(0,1fr)] wide:gap-x-0 wide:grid-cols-[var(--rack-w)_12px_minmax(0,1fr)_12px_var(--side-w)]"

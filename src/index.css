@@ -213,6 +213,19 @@ textarea.field { height: auto; min-height: 72px; padding: var(--s2) var(--s3); l
   .pad.flash { filter: none; }
 }
 
+/* ── Landscape fit (see src/ui/landscapeFit.ts) ──
+   While the studio is scaled to a touch device's landscape screen the page is exactly one
+   screen tall: transport and Beat Editor stay visible and the Song section gives way
+   (min-height 0 + its lanes scroll internally) instead of the page scrolling. */
+.fit-screen {
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+.fit-screen section[aria-label='Song'] {
+  min-height: 0;
+}
+
 /* ── Home guide: same hardware panels as the app; faint staves only behind the title ── */
 .font-hand { font-family: var(--font-hand); } /* plain CSS so it works without a Tailwind config reload */
 .guide-paper {
