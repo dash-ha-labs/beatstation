@@ -123,7 +123,7 @@ export default function Home() {
         err instanceof ApiError && err.status === 401
           ? 'Enter the studio passcode to see saved workspaces.'
           : err instanceof ApiError && err.code === 'api_unavailable'
-            ? 'The API is not running. Start Krisp with “npx vercel dev” and open http://localhost:3000.'
+            ? 'Saving and the sound library are not available in this deployment. Beats still work — create one and play it right here.'
             : 'Could not load workspaces. Check your connection.',
       );
     }
