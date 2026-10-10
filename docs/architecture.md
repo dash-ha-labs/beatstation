@@ -131,9 +131,12 @@ friendlier, cleaner surface — rounder corners (`--r-lg/md/sm/pad` 22/16/12/14 
 firmer lit-pad state (solid fill + light rim), and kid-facing copy ("Beatstation",
 "projects"). The server save-status LED is hidden in the Transport (the static deploy
 keeps work in the browser session); all save/AI/export machinery is untouched.
-Landscape phones/tablets (M2): `src/ui/landscapeFit.ts` scales the whole studio to the
-screen via the meta viewport while active (`fit-screen` locks the page to one screen;
-the Song section scrolls internally) and restores the default viewport otherwise.
+
+Landscape phones/tablets (M2, task t_645a14eb): the studio uses plain responsive CSS in
+normal document flow — media queries plus dynamic pad geometry (`padGeometry`) size the
+16-step sequencer to the viewport, pads keep a 40 px minimum on touch devices and the
+page scrolls naturally instead of clipping. There is no viewport/meta scaling: an
+earlier `src/ui/landscapeFit.ts` meta-viewport hack was reviewed and removed.
 
 ## Tests
 
