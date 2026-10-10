@@ -274,7 +274,7 @@ export function Guide() {
         <Note className="mb-[6px]" />
         <div>
           <Hand as="h2" className="text-[38px] leading-none text-ink"><span id="guide-title">Your first beat, step by step</span></Hand>
-          <Hand as="p" className="mt-s1 text-[18px] text-ink-soft">eight moves from a blank page to a WAV in your DAW</Hand>
+          <Hand as="p" className="mt-s1 text-[18px] text-ink-soft">eight moves from a blank page to your very own song</Hand>
         </div>
         <button className="btn ml-auto" aria-expanded={!hidden} aria-controls="guide-body" onClick={toggle}>{hidden ? 'Show the guide' : 'Hide the guide'}</button>
       </header>

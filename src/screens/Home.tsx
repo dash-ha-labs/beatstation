@@ -123,7 +123,7 @@ export default function Home() {
         err instanceof ApiError && err.status === 401
           ? 'Enter the studio passcode to see saved workspaces.'
           : err instanceof ApiError && err.code === 'api_unavailable'
-            ? 'Saving and the sound library are not available in this deployment. Beats still work — create one and play it right here.'
+            ? 'Saving is turned off right now. Beats still work — create one and play it right here!'
             : 'Could not load workspaces. Check your connection.',
       );
     }

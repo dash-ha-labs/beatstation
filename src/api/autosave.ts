@@ -60,10 +60,13 @@ export async function flush(): Promise<void> {
     const msg = err instanceof Error ? err.message : 'Save failed';
     setStatus('error', `Not saved: ${msg}`);
     // Kids reskin (t_0d35129e): this static deployment has no API by design — every save
-    // "fails" (Vite dev: api_unavailable; nginx: bare 404 with no JSON body), so the red
-    // toast would nag on load and every edit. A real API's 404 carries a JSON error code
-    // and still toasts for producers.
-    const noApi = err instanceof ApiError && (err.code === 'api_unavailable' || err.code === 'http_404');
+    // "fails" (Vite dev: api_unavailable; nginx: bare 404 on GET and bare 405 on POST with
+    // no JSON body), so the red toast would nag on load and every edit. The client only
+    // yields http_<status> codes when the error body is not JSON, so a real API's 404
+    // (which carries a JSON error code) still toasts for producers.
+    const noApi =
+      err instanceof ApiError &&
+      (err.code === 'api_unavailable' || err.code === 'http_404' || err.code === 'http_405');
     if (!noApi && Date.now() - lastErrorToast > 60_000) {
       lastErrorToast = Date.now();
       useUi.getState().toast('Could not save. Your edits are kept here and will retry.', 'error');
