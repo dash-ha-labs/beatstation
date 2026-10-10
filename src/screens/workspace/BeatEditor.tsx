@@ -21,7 +21,7 @@ type Paint = { on: boolean; pending: { slotId: Id; index: number } | null } | nu
 
 const VEL_NAME: Record<number, string> = { 40: 'ghost', 80: 'soft', 100: 'normal', 127: 'accent' };
 const ROW_LABEL_W = 92; // name label shown when the Rack is a slide-over (< 900 px)
-const CLEAR_W = 28;
+const CLEAR_W = 36;
 
 const PAD_MAX_H = 40; // rows are 44 px tall and line up with the Rack
 
@@ -88,7 +88,7 @@ const Row = memo(function Row({ slot, steps, length, padSize, padW, focusCol, on
           </div>
         ))}
       </div>
-      <button type="button" className="icon-btn ml-s1 h-6 w-6 shrink-0 opacity-60 hover:opacity-100" style={{ width: CLEAR_W - 4 }} aria-label={`Clear ${slot.name} row`} title="Clear row" onClick={() => onClear(slot.id)}>
+      <button type="button" className="icon-btn ml-s1 shrink-0 opacity-60 hover:opacity-100" style={{ width: CLEAR_W - 4 }} aria-label={`Clear ${slot.name} row`} title="Clear row" onClick={() => onClear(slot.id)}>
         <CloseIcon size={12} />
       </button>
     </div>
@@ -122,7 +122,7 @@ export function BeatEditor() {
     const fit = () => {
       const labelW = window.innerWidth < 900 ? ROW_LABEL_W : 0;
       const avail = el.clientWidth - labelW - CLEAR_W - 4;
-      const minSize = window.matchMedia('(pointer: coarse)').matches ? 32 : 22;
+      const minSize = window.matchMedia('(pointer: coarse)').matches ? 40 : 22;
       const next = padGeometry(avail, length, minSize);
       setPad((cur) => (cur.w === next.w && cur.h === next.h ? cur : next));
     };
