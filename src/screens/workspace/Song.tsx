@@ -160,7 +160,7 @@ export function Song() {
     <section aria-label="Song" className="panel flex min-w-0 flex-col p-s4">
       <div className="mb-s3 flex flex-wrap items-center gap-s3">
         <h2 className="label text-ink">Song</h2>
-        <span className="label">{w.songBars} bars · {w.playMode === 'SONG' ? 'playing the timeline' : 'press S or switch to SONG to play'}</span>
+        <span className="label">{w.songBars} bars · {w.playMode === 'SONG' ? 'playing the timeline' : 'switch the play mode to SONG to play'}</span>
         <div className="ml-auto flex items-center gap-s2">
           <span className="label">Bars</span>
           <Lcd label="Song length in bars" width={56} value={w.songBars} min={4} max={SONG_BARS_MAX} step={1} format={(v) => String(v).padStart(3, '0')} onChange={(v) => actions.setSongBars(v)} />
