@@ -35,10 +35,17 @@ function attachSampleBuffers(w: Workspace) {
 }
 
 export function ensureAudioStarted(): Promise<Engine> {
-  if (engine) return Promise.resolve(engine);
+  // Resume synchronously on every Play/Preview gesture. A touch-down warm-up can leave
+  // resume pending on iPad, and Safari can suspend an already-created engine later.
+  const resumed = Tone.start();
+  if (engine) {
+    const current = engine;
+    return resumed.then(() => current);
+  }
+  if (starting) return Promise.all([resumed, starting]).then(([, current]) => current);
   if (!starting) {
     starting = (async () => {
-      await Tone.start();
+      await resumed;
       Tone.getContext().lookAhead = 0.1;
       const e = createEngine(Tone.getContext());
       engine = e;
@@ -65,19 +72,18 @@ export function ensureAudioStarted(): Promise<Engine> {
 }
 
 /**
- * Starts audio on the first click/key in a Workspace (a user gesture, as browsers require), so building the
- * engine (every Slot strip, pre-rendering hats) happens then and not on the first beat after Play.
+ * Starts audio on the first completed click/tap or key in a Workspace. Touch pointerdown
+ * is too early for Safari's audio unlock. Keep listening until startup succeeds.
  */
 export function warmUpOnFirstGesture(): () => void {
   const warm = () => {
-    remove();
-    ensureAudioStarted().catch(() => {});
+    ensureAudioStarted().then(remove, () => {});
   };
   const remove = () => {
-    window.removeEventListener('pointerdown', warm, true);
+    window.removeEventListener('click', warm, true);
     window.removeEventListener('keydown', warm, true);
   };
-  window.addEventListener('pointerdown', warm, true);
+  window.addEventListener('click', warm, true);
   window.addEventListener('keydown', warm, true);
   return remove;
 }

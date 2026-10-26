@@ -53,6 +53,7 @@ STATUS: `TODO` · `DOING` · `DONE` · `CUT`.
 | T21 | both | Full QA pass 2026-10-04 (headless Chrome, writes faked in-memory): every control and feature F1–F10 exercised; fixes: duplicate menu keys, ambiguous preset preview labels, LED dots over labels, square choice chips, clipped Create textarea, chip-row / grid scrollbars | T20 | 2 h | All F1–F10 checks pass; no console errors; no overflow at 1440/1050/390 px | DONE |
 | T20 | B | Friend feedback 2026-10-04: Mixer strips clipped and scrolled; resizable panels (Rack, Side, Song, Mixer) with Splitters | T9, T15 | 1.5 h | Mixer: no overflow and aligned M/S at 400–650 px; widths persist; no page overflow at 1200 px | DONE |
 | T19 | A | Friend feedback 2026-10-04: loops glitch and a full grid lags. Strip-input cycle-check barrier, baked MetalSynth hats, sample polyphony cap, skip unchanged mixer params, path-based clip mini maps, audio warm-up on first gesture | T4, T9 | 2 h | `tests/perf.test.ts`; full grid at 4× CPU throttle loops with 0 late ticks (TRD → PERFORMANCE) | DONE |
+| T22 | agent | iPad Play/Preview fix (2026-10-26): resume on each user gesture, retry pending startup, warm on completed taps, keep failed warm-up retryable, and start Home guide previews before asynchronous work | T4, T5, T19 | — | `tests/audio-context.test.ts`; WebKit iPad portrait/landscape touch playback and resume with advancing playhead and non-silent master output; build/lint/secrets checks | DONE (automated checks; physical iPad verification pending) |
 
 ## PARALLELISM
 

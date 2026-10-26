@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { ensureAudioStarted } from '../audio/context';
 import type { SynthPreset } from '../model/types';
 import { Chip } from '../ui/Chip';
 import { Fader, formatDb } from '../ui/Fader';
@@ -17,9 +18,9 @@ import { Toggle } from '../ui/Toggle';
 const HIDE_KEY = 'pocket.guide.hidden';
 const VEL = [100, 127, 40, 80];
 
-/** Plays a kit sound without loading the audio engine until the first tap (keeps Home light). */
+/** Request audio directly from the tap; a lazy import loses Safari's user gesture. */
 function hear(preset: SynthPreset) {
-  void import('../audio/context').then((m) => m.ensureAudioStarted()).then((e) => e.previewPreset(preset));
+  void ensureAudioStarted().then((e) => e.previewPreset(preset));
 }
 
 function Hand({ children, className = '', as: Tag = 'span' }: { children: ReactNode; className?: string; as?: 'span' | 'h2' | 'h3' | 'p' }) {

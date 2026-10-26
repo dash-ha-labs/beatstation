@@ -68,9 +68,12 @@ depends on a server.
 - **Scheduling** (`scheduler.ts`) — pure timing functions (step seconds, swing, humanize
   offsets, loop wrapping) that are unit-tested separately from the one Transport binding.
   4/4 only, 16th-note grid, BPM 60–200, swing 0–0.6.
-- **Context** (`context.ts`) — `Tone.start()` runs on the first user gesture; the same
-  `createEngine(context)` factory drives both the live context and offline contexts, so
-  WAV export (`export-wav.ts`) renders through the identical engine.
+- **Context** (`context.ts`) — `Tone.start()` runs synchronously on each Play/Preview
+  gesture, including when engine creation is pending or Safari has suspended audio.
+  Warm-up uses a completed click/tap or keydown and removes its listeners only after
+  startup succeeds. The Home guide also requests audio directly from its tap handler.
+  The same `createEngine(context)` factory drives live and offline contexts, so WAV
+  export (`export-wav.ts`) renders through the identical engine.
 - **Export** — WAV mixdown via offline render + `wav-encoder.ts`; MIDI GM drums via
   `@tonejs/midi`.
 
